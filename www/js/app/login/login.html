@@ -5,14 +5,16 @@
 		    	<img src="../../../img/ionic.png" style="width:50%;">
 		  	</div>
 	      	<div class="list list-inset">
+	      	<form name="formLogin">
 			  <label class="item item-input">
-			    <input type="text" placeholder="Usuario">
+			    <input type="text" placeholder="Usuario" id="txtUsuario" data-ng-model="usuario.usuario" ng-required="true">
 			  </label>
 			  <label class="item item-input">
-			    <input type="password" placeholder="Contraseña">
+			    <input type="password" placeholder="Contraseña" id="txtContrasenia" data-ng-model="usuario.contrasenia" ng-required="true">
 			  </label>
 			</div>
-			<button class="button button-block button-positive">Ingresar</button>
+			<button class="button button-block button-positive" ng-click="validarForm(usuario) && validarUsuario(usuario)">Ingresar</button>
+			</form>
 			<div class="row">
 				  <div class="col col-50 texto-center" ui-sref="registro">Registrarse</div>
 				  <div class="col col-50 texto-center" ui-sref="contrasenia">Olvidó su Contraseña</div>

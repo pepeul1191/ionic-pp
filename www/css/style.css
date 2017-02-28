@@ -1,3 +1,11 @@
 /* Empty. Add your own CSS if you like */
 .texto-center { text-align: center;}
 .texto-plomo{color:#808080; }
+
+.button{border-radius: 0px}
+
+.input-text-error{border-color: #a94442}
+.input-text-error-placeholder::-webkit-input-placeholder { color: #a94442; } /* WebKit */
+.input-text-error-placeholder:-moz-placeholder { color: #a94442; } /* Firefox 18- */
+.input-text-error-placeholder::-moz-placeholder { color: #a94442; } /* Firefox 19+ */
+.input-text-error-placeholder:-ms-input-placeholder { color: #a94442; } /* IE 10+ */
