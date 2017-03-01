@@ -1,6 +1,6 @@
 angular.module('LoginModule')
 
-.controller('LoginController', function($scope){
+.controller('LoginController', ['$scope', 'AccesosService', function($scope, AccesosService){
 	$scope.usuario = {};
 
 	$scope.$on('$ionicView.loaded', function(){
@@ -38,7 +38,10 @@ angular.module('LoginModule')
 	}
 
 	$scope.validarUsuario = function(usuario){
-		console.log("validarUsuario");
+		AccesosService.validarUsuario(usuario).then(function(){
+			console.log("ENTRO AL PROMISE EN EL CONTROLADOR");
+		});
+
 		return true;
 	}
-});
+}]);

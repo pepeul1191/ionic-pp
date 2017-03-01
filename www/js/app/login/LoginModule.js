@@ -1,1 +1,1 @@
-angular.module('LoginModule', [])
+angular.module('LoginModule', ['AccesosModule'])
