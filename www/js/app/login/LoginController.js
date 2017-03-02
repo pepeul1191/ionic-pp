@@ -1,6 +1,6 @@
 angular.module('LoginModule')
 
-.controller('LoginController', ['$scope', 'AccesosService', 'ionicToast', function($scope, AccesosService, ionicToast){
+.controller('LoginController', ['$scope', 'AccesosService', 'ionicToast', '$state', function($scope, AccesosService, ionicToast, $state){
 	$scope.usuario = {};
 
 	$scope.$on('$ionicView.loaded', function(){
@@ -9,7 +9,7 @@ angular.module('LoginModule')
 
 	$scope.validarForm = function(usuario){
 		var validado = false;
-		ionicToast.show('This is a toast at the top.', 'top', false, 2500);
+
 		if (typeof $scope.usuario.usuario === 'undefined'){
 			$("#txtUsuario").parent().addClass("input-text-error");
 			$("#txtUsuario").addClass('input-text-error-placeholder');
@@ -34,14 +34,23 @@ angular.module('LoginModule')
 			validado = true;
 		}
 
+		if(validado == false){
+			ionicToast.show('Ambos campos son obligatorios.', 'top', false, 2500);
+		}
+
 		return validado;
 	}
 
 	$scope.validarUsuario = function(usuario){
 		AccesosService.validarUsuario(usuario).then(function(rpta){
-			console.log(rpta);
-			ionicToast.show('This is a toast at the top.', 'top', true, 2500);
-			//console.log("ENTRO AL PROMISE EN EL CONTROLADOR");
+			if(rpta == 1){
+				console.log($state);
+				$state.go('app.about');
+			}else{
+				$("#txtUsuario").parent().addClass("input-text-error");
+				$("#txtContrasenia").parent().addClass("input-text-error");
+				ionicToast.show('Usuario y/o contraseña no válidos.', 'top', false, 3000);
+			}
 		});
 
 		return true;
