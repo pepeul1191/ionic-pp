@@ -38,8 +38,9 @@ angular.module('LoginModule')
 	}
 
 	$scope.validarUsuario = function(usuario){
-		AccesosService.validarUsuario(usuario).then(function(){
-			console.log("ENTRO AL PROMISE EN EL CONTROLADOR");
+		AccesosService.validarUsuario(usuario).then(function(rpta){
+			console.log(rpta);
+			//console.log("ENTRO AL PROMISE EN EL CONTROLADOR");
 		});
 
 		return true;

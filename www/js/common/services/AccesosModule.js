@@ -1,6 +1,6 @@
 angular.module('AccesosModule', [])
 
-.constant('urlAccesos', 'http://127.0.0.1:5001/')
+.constant('urlAccesos', 'http://localhost/servicio_test/')
 
 .factory('AccesosService', function($http, $q, urlAccesos){
 	var accesosService = {};
@@ -8,14 +8,14 @@ angular.module('AccesosModule', [])
 	
 	accesosService.validarUsuario = function(usuario){
 		var deferred = $q.defer();
-		
-		$http.get(urlAccesos + 'item/listar_todos', {}).then(
+		$http.defaults.headers.post["Content-Type"] = "text/plain";
+		$http.post(urlAccesos + 'login/acceder?usuario=' + usuario.usuario + '&contrasenia=' + usuario.contrasenia , {}).then(
 			function(response){
-				console.log(response);
+				//console.log(response);
 				deferred.resolve(response.data);
 			}, 
 			function(error){
-				console.log(error);
+				//console.log(error);
 			}
 		);
 
