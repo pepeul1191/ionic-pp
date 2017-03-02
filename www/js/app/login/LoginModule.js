@@ -1,1 +1,1 @@
-angular.module('LoginModule', ['AccesosModule'])
+angular.module('LoginModule', ['AccesosModule', 'ionic-toast'])
