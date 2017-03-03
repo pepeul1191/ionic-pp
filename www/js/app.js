@@ -25,7 +25,7 @@ angular.module('starter', ['ionic', 'LoginModule'])
     .state('login', {
         url: '/login',
         abstract: false,
-        templateUrl: 'js/app/login/login.html',
+        templateUrl: 'templates/login/ingreso.html',
         controller: 'LoginController'
     })
 
