@@ -19,14 +19,8 @@ angular.module('starter', ['ionic', 'LoginModule'])
     .state('app', {
         url: '/app',
         abstract: true,
-        templateUrl: 'js/app/menu/menu.html',
-    })
-
-    .state('login', {
-        url: '/login',
-        abstract: false,
-        templateUrl: 'templates/login/ingreso.html',
-        controller: 'LoginController'
+        //templateUrl: 'js/app/menu/menu.html',
+        templateUrl: 'templates/layouts/app.html',
     })
 
     .state('registro', {
@@ -50,5 +44,5 @@ angular.module('starter', ['ionic', 'LoginModule'])
         }
     })
 
-  $urlRouterProvider.otherwise('/login');
+  $urlRouterProvider.otherwise('/login/ingresar');
 });
