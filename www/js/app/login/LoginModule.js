@@ -26,7 +26,7 @@ angular.module('LoginModule', ['AccesosModule', 'ionic-toast'])
         views: {
             'content': {
                 templateUrl: 'templates/login/registro.html',
-                //controller: 'LoginController'
+                controller: 'RegistroController'
             }
         },
     })

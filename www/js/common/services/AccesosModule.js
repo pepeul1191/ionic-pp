@@ -22,5 +22,37 @@ angular.module('AccesosModule', [])
 		return deferred.promise;
 	};
 
+	accesosService.validarCorreoRepetido = function(correo){
+		var deferred = $q.defer();
+		$http.defaults.headers.post["Content-Type"] = "text/plain";
+		$http.post(urlAccesos + 'usuario/validar_correo_repetido?correo=' + correo , {}).then(
+			function(response){
+				//console.log(response);
+				deferred.resolve(response.data);
+			}, 
+			function(error){
+				//console.log(error);
+			}
+		);
+
+		return deferred.promise;
+	};
+
+	accesosService.validarUsuarioRepetido = function(usuario){
+		var deferred = $q.defer();
+		$http.defaults.headers.post["Content-Type"] = "text/plain";
+		$http.post(urlAccesos + 'usuario/validar_usuario_repetido?usuario=' + usuario , {}).then(
+			function(response){
+				//console.log(response);
+				deferred.resolve(response.data);
+			}, 
+			function(error){
+				//console.log(error);
+			}
+		);
+
+		return deferred.promise;
+	};
+
 	return accesosService;
 });
