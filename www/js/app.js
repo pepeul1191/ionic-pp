@@ -23,18 +23,6 @@ angular.module('starter', ['ionic', 'LoginModule'])
         templateUrl: 'templates/layouts/app.html',
     })
 
-    .state('registro', {
-        url: '/registro',
-        abstract: false,
-        templateUrl: 'js/app/registro/registro.html',
-    })
-
-      .state('contrasenia', {
-        url: '/contrasenia',
-        abstract: false,
-        templateUrl: 'js/app/contrasenia/contrasenia.html',
-    })
-
     .state('app.about', {
         url: '/about',
         views: {
