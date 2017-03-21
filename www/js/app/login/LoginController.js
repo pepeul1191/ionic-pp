@@ -8,37 +8,19 @@ angular.module('LoginModule')
 	});
 
 	$scope.validarForm = function(usuario){
-		var validado = false;
+		var validado = true;
+		var usuario_valido = new Validacion($scope.usuario.usuario, $("#txtUsuario"), "Ingrese su usuario"); usuario_valido.ValidarTextLleno();
+		var contrasenia_valido = new Validacion($scope.usuario.contrasenia, $("#txtContrasenia"), "Ingrese su contraseña"); contrasenia_valido.ValidarTextLleno();
 
-		if (typeof $scope.usuario.usuario === 'undefined'){
-			$("#txtUsuario").parent().addClass("input-text-error");
-			$("#txtUsuario").addClass('input-text-error-placeholder');
-			$("#txtUsuario").val("");
-           $("#txtUsuario").attr("placeholder", "Ingrese su usuario");
-			validado = false;
-		}else{
-			$("#txtUsuario").parent().removeClass("input-text-error");
-			$("#txtUsuario").removeClass('input-text-error-placeholder');
-			validado = true;
-		}
+		var validaciones = [usuario_valido.rpta, contrasenia_valido.rpta];
+		console.log(validaciones);
+		if(_.contains(validaciones, false)){
+        	ionicToast.show('Ambos campos son obligatorios.', 'top', false, 2500);
+        	validado = false;
+       }
+      	
+      	return validado;
 
-		if (typeof $scope.usuario.contrasenia === 'undefined'){
-			$("#txtContrasenia").parent().addClass("input-text-error");
-			$("#txtContrasenia").addClass('input-text-error-placeholder');
-			$("#txtContrasenia").val("");
-           $("#txtContrasenia").attr("placeholder", "Ingrese su contraseña");
-			validado = false;
-		}else{
-			$("#txtContrasenia").parent().removeClass("input-text-error");
-			$("#txtContrasenia").removeClass('input-text-error-placeholder');
-			validado = true;
-		}
-
-		if(validado == false){
-			ionicToast.show('Ambos campos son obligatorios.', 'top', false, 2500);
-		}
-
-		return validado;
 	}
 
 	$scope.validarUsuario = function(usuario){

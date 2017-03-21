@@ -1,5 +1,6 @@
 var Validacion = new Class({
-    initialize: function(input_id, mensaje_error = false){
+    initialize: function(scope, input_id, mensaje_error = false){
+        this.scope = scope;
         this.input_id = input_id;
         this.mensaje_error = mensaje_error;
         this.rpta = false;
@@ -59,14 +60,16 @@ var Validacion = new Class({
       this.rpta = rpta;
     },
     ValidarTextLleno(){
-      var texto = $(this.input_id).val();
-      //console.log(this.input_id);
-      if (texto == ""){
-        $(this.input_id).addClass("input-text-error");
+      var texto = this.scope;
+      
+      if (typeof texto === "undefined"){
+        $(this.input_id).parent().addClass("input-text-error");
+        $(this.input_id).addClass('input-text-error-placeholder');
         $(this.input_id).val("");
         $(this.input_id).attr("placeholder", this.mensaje_error);
       }else{
-        $(this.input_id).removeClass("input-text-error");
+        $(this.input_id).parent().removeClass("input-text-error");
+        $(this.input_id).removeClass('input-text-error-placeholder');
         this.rpta = true;
       }
     },
