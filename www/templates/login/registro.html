@@ -7,19 +7,19 @@
 	    <ion-content style="margin-top:40px" class="padding">
 	      	<div class="list list-inset">
 		      	 <label class="item item-input" class="">
-				    <input type="text" placeholder="Nombre Completo" id="txtNombreCompleto" data-ng-model="usuario.nombre_completo">
+				    <input type="text" placeholder="Nombre Completo" id="txtRegistroNombreCompleto" data-ng-model="usuario.nombre_completo">
 				</label>
 				<label class="item item-input">
-				    <input type="text" placeholder="Correo" id="txtCorreo" data-ng-model="usuario.correo" ng-blur='validarCorreoRepetido(usuario.correo)'>
+				    <input type="text" placeholder="Correo" id="txtRegistroCorreo" data-ng-model="usuario.correo" ng-blur='validarCorreoRepetido(usuario.correo)'>
 				</label>
 				<label class="item item-input">
-				    <input type="text" placeholder="Usuario" id="txtUsuario" data-ng-model="usuario.usuario" ng-blur="validarUsuarioRepetido(usuario.usuario)">
+				    <input type="text" placeholder="Usuario" id="txtRegistroUsuario" data-ng-model="usuario.usuario" ng-blur="validarUsuarioRepetido(usuario.usuario)">
 				</label>
 				<label class="item item-input">
-				    <input type="password" placeholder="Contraseña" id="txtContrasenia" data-ng-model="usuario.contrasenia">
+				    <input type="password" placeholder="Contraseña" id="txtRegistroContrasenia" data-ng-model="usuario.contrasenia">
 				</label>
 				<label class="item item-input">
-				    <input type="password" placeholder="Repita Contraseña" id="txtContraseniaRepetida" data-ng-model="usuario.contrasenia_repetida">
+				    <input type="password" placeholder="Repita Contraseña" id="txtRegistroContraseniaRepetida" data-ng-model="usuario.contrasenia_repetida">
 				</label>
 			</div>
 			<ion-list>

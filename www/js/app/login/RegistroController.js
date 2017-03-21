@@ -9,112 +9,55 @@ angular.module('LoginModule')
 
 	$scope.validarForm = function(usuario){
 		var validado = false;
-		var correo_lleno = false;
+		//var correo_lleno = false;
 
-		if (typeof $scope.usuario.nombre_completo === 'undefined'){
-			$("#txtNombreCompleto").parent().addClass("input-text-error");
-			$("#txtNombreCompleto").addClass('input-text-error-placeholder');
-			$("#txtNombreCompleto").val("");
-           $("#txtNombreCompleto").attr("placeholder", "Ingrese su nombre");
-			validado = false;
-		}else{
-			$("#txtNombreCompleto").parent().removeClass("input-text-error");
-			$("#txtNombreCompleto").removeClass('input-text-error-placeholder');
-			validado = true;
+		var nombre_completo_valido = new Validacion($scope.usuario.nombre_completo, $("#txtRegistroNombreCompleto"), "Ingrese su nombre"); nombre_completo_valido.ValidarTextLleno();
+
+		var correo_valido = new Validacion($scope.usuario.correo, $("#txtRegistroCorreo"), "Ingrese su correo"); correo_valido.ValidarTextLleno();
+		
+		if(correo_valido.rpta == true){
+			var correo_formato_valido = new Validacion($scope.usuario.correo, $("#txtRegistroCorreo"), "Ingrese un dirección de correo válida"); correo_formato_valido.ValidarCorreo();
+			if(correo_formato_valido.rpta == false){
+				correo_valido.rpta = false
+			}	
 		}
 
-		if (typeof $scope.usuario.correo === 'undefined'){
-			$("#txtCorreo").parent().addClass("input-text-error");
-			$("#txtCorreo").addClass('input-text-error-placeholder');
-			$("#txtCorreo").val("");
-           $("#txtCorreo").attr("placeholder", "Ingrese su correo");
-			correo_lleno = false;
-			validado = false;
-		}else{
-			$("#txtCorreo").parent().removeClass("input-text-error");
-			$("#txtCorreo").removeClass('input-text-error-placeholder');
-			validado = true;
-			correo_lleno = true;
-		}
+		var usuario_valido = new Validacion($scope.usuario.usuario, $("#txtRegistroUsuario"), "Ingrese su usuario"); usuario_valido.ValidarTextLleno();
 
-		if (typeof $scope.usuario.usuario === 'undefined'){
-			$("#txtUsuario").parent().addClass("input-text-error");
-			$("#txtUsuario").addClass('input-text-error-placeholder');
-			$("#txtUsuario").val("");
-           $("#txtUsuario").attr("placeholder", "Ingrese su usuario");
-			validado = false;
-		}else{
-			$("#txtUsuario").parent().removeClass("input-text-error");
-			$("#txtUsuario").removeClass('input-text-error-placeholder');
-			validado = true;
-		}
+		var contrasenia_valido = new Validacion($scope.usuario.contrasenia, $("#txtRegistroContrasenia"), "Ingrese su contraseña"); contrasenia_valido.ValidarTextLleno();
 
-		if (typeof $scope.usuario.contrasenia === 'undefined'){
-			$("#txtContrasenia").parent().addClass("input-text-error");
-			$("#txtContrasenia").addClass('input-text-error-placeholder');
-			$("#txtContrasenia").val("");
-           $("#txtContrasenia").attr("placeholder", "Ingrese su contraseña");
-			validado = false;
-		}else{
-			$("#txtContrasenia").parent().removeClass("input-text-error");
-			$("#txtContrasenia").removeClass('input-text-error-placeholder');
-			validado = true;
-		}
+		var contrasenia_repetida_valido = new Validacion($scope.usuario.contrasenia_repetida, $("#txtRegistroContraseniaRepetida"), "Ingrese su contraseña"); contrasenia_repetida_valido.ValidarTextLleno();
 
-		if (typeof $scope.usuario.contrasenia_repetida === 'undefined'){
-			$("#txtContraseniaRepetida").parent().addClass("input-text-error");
-			$("#txtContraseniaRepetida").addClass('input-text-error-placeholder');
-			$("#txtContraseniaRepetida").val("");
-           $("#txtContraseniaRepetida").attr("placeholder", "Ingrese su contraseña");
-			validado = false;
-		}else{
-			$("#txtContraseniaRepetida").parent().removeClass("input-text-error");
-			$("#txtContraseniaRepetida").removeClass('input-text-error-placeholder');
-			validado = true;
-		}
 
-		if(validado == false){
-			ionicToast.show('Ambos campos son obligatorios.', 'top', false, 2500);
-		}
+		var validaciones = [nombre_completo_valido.rpta, correo_valido.rpta, usuario_valido.rpta, contrasenia_valido.rpta, contrasenia_repetida_valido.rpta];
+		//console.log(validaciones);
+		if(_.contains(validaciones, false)){
+        	ionicToast.show('Llene los campos obligatorios', 'top', false, 2500);
+        	validado = false;
+       }
 
-		if(validado == true){
-			if($("#txtContrasenia").val() != $("#txtContraseniaRepetida").val()){
-				ionicToast.show('Ambos las contraseñas no coinciden', 'top', false, 2500);
-				$("#txtContrasenia").parent().addClass("input-text-error");
-				$("#txtContraseniaRepetida").parent().addClass("input-text-error");
+		if(contrasenia_valido.rpta && contrasenia_repetida_valido.rpta){
+			if($("#txtRegistroContrasenia").val() != $("#txtRegistroContraseniaRepetida").val()){
+				ionicToast.show('Las contraseñas no coinciden', 'top', false, 2500);
+				$("#txtRegistroContrasenia").parent().addClass("input-text-error");
+				$("#txtRegistroContraseniaRepetida").parent().addClass("input-text-error");
 				validado = false;		
 			}
 		}
 
-		var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-		if (correo_lleno){
-		    if (re.test($scope.usuario.correo)){
-		    	$("#txtCorreo").removeClass("input-text-error");
-		       $("#txtCorreo").parent().removeClass("input-text-error");
-				$("#txtCorreo").removeClass('input-text-error-placeholder');
-				validado = true;
-		    }else{
-		       $("#txtCorreo").parent().addClass("input-text-error");
-				$("#txtCorreo").addClass('input-text-error-placeholder');
-				$("#txtCorreo").val("");
-		    	$("#txtCorreo").attr("placeholder", "Ingrese un dirección de correo válida");
-		       	validado = false;
-		    }
-		 }
-
+		//alert(validado);
 		return validado;
 	}
 
 	$scope.validarCorreoRepetido= function(correo){
 		AccesosService.validarCorreoRepetido(correo).then(function(rpta){
 			if(rpta == 0){
-				alert("=)");
+				//alert("=)");
 			}else{
-				$("#txtCorreo").parent().addClass("input-text-error");
-				$("#txtCorreo").addClass('input-text-error-placeholder');
-				$("#txtCorreo").val("");
-		    	$("#txtCorreo").attr("placeholder", "El correo en uso ya está en uso");
+				$("#txtRegistroCorreo").parent().addClass("input-text-error");
+				$("#txtRegistroCorreo").addClass('input-text-error-placeholder');
+				$("#txtRegistroCorreo").val("");
+		    	$("#txtRegistroCorreo").attr("placeholder", "El correo en uso ya está en uso");
 				
 				ionicToast.show('El correo ingresado ya está en uso', 'top', false, 3000);
 			}
@@ -123,16 +66,16 @@ angular.module('LoginModule')
 
 	$scope.validarUsuarioRepetido= function(usuario){
 		AccesosService.validarUsuarioRepetido(usuario).then(function(rpta){
-			alert(rpta);
+			//alert(rpta);
 			if(rpta == 0){
-				$("#txtUsuario").removeClass("input-text-error");
-		       $("#txtUsuario").parent().removeClass("input-text-error");
-				$("#txtUsuario").removeClass('input-text-error-placeholder');
+				$("#txtRegistroUsuario").removeClass("input-text-error");
+		       $("#txtRegistroUsuario").parent().removeClass("input-text-error");
+				$("#txtRegistroUsuario").removeClass('input-text-error-placeholder');
 			}else{
-				$("#txtUsuario").parent().addClass("input-text-error");
-				$("#txtUsuario").addClass('input-text-error-placeholder');
-				$("#txtUsuario").val("");
-		    	$("#txtUsuario").attr("placeholder", "El nombre de usuario ya está en uso");
+				$("#txtRegistroUsuario").parent().addClass("input-text-error");
+				$("#txtRegistroUsuario").addClass('input-text-error-placeholder');
+				$("#txtRegistroUsuario").val("");
+		    	$("#txtRegistroUsuario").attr("placeholder", "El nombre de usuario ya está en uso");
 				
 				ionicToast.show('El nombre de usuario ya está en uso', 'top', false, 3000);
 			}
@@ -145,8 +88,8 @@ angular.module('LoginModule')
 				console.log($state);
 				$state.go('app.about');
 			}else{
-				$("#txtUsuario").parent().addClass("input-text-error");
-				$("#txtContrasenia").parent().addClass("input-text-error");
+				$("#txtRegistroUsuario").parent().addClass("input-text-error");
+				$("#txtRegistroContrasenia").parent().addClass("input-text-error");
 				ionicToast.show('Usuario y/o contraseña no válidos.', 'top', false, 3000);
 			}
 		});
