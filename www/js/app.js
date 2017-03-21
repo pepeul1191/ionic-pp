@@ -1,3 +1,5 @@
+var BASE_URL = 'http://localhost:8888/';
+
 angular.module('starter', ['ionic', 'LoginModule'])
 
 .run(function($ionicPlatform) {
