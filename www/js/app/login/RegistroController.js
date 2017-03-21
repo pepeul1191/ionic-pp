@@ -123,6 +123,7 @@ angular.module('LoginModule')
 
 	$scope.validarUsuarioRepetido= function(usuario){
 		AccesosService.validarUsuarioRepetido(usuario).then(function(rpta){
+			alert(rpta);
 			if(rpta == 0){
 				$("#txtUsuario").removeClass("input-text-error");
 		       $("#txtUsuario").parent().removeClass("input-text-error");

@@ -43,7 +43,6 @@ angular.module('AccesosModule', [])
 		$http.defaults.headers.post["Content-Type"] = "text/plain";
 		$http.post(BASE_URL + 'usuario/validar_usuario_repetido?usuario=' + usuario , {}).then(
 			function(response){
-				//console.log(response);
 				deferred.resolve(response.data);
 			}, 
 			function(error){
