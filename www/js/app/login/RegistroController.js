@@ -8,7 +8,7 @@ angular.module('LoginModule')
 	});
 
 	$scope.validarForm = function(usuario){
-		var validado = false;
+		var validado = true;
 		//var correo_lleno = false;
 
 		var nombre_completo_valido = new Validacion($scope.usuario.nombre_completo, $("#txtRegistroNombreCompleto"), "Ingrese su nombre"); nombre_completo_valido.ValidarTextLleno();
@@ -45,8 +45,13 @@ angular.module('LoginModule')
 			}
 		}
 
-		//alert(validado);
-		return validado;
+		if(validado){
+			$scope.registrarUsuario(usuario);
+		}
+	}
+
+	$scope.registrarUsuario = function(usuario){
+		console.log(usuario);
 	}
 
 	$scope.validarCorreoRepetido= function(correo){

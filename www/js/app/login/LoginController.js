@@ -13,7 +13,7 @@ angular.module('LoginModule')
 		var contrasenia_valido = new Validacion($scope.usuario.contrasenia, $("#txtContrasenia"), "Ingrese su contraseña"); contrasenia_valido.ValidarTextLleno();
 
 		var validaciones = [usuario_valido.rpta, contrasenia_valido.rpta];
-		console.log(validaciones);
+		//console.log(validaciones);
 		if(_.contains(validaciones, false)){
         	ionicToast.show('Ambos campos son obligatorios.', 'top', false, 2500);
         	validado = false;
@@ -26,7 +26,7 @@ angular.module('LoginModule')
 	$scope.validarUsuario = function(usuario){
 		AccesosService.validarUsuario(usuario).then(function(rpta){
 			if(rpta == 1){
-				console.log($state);
+				//console.log($state);
 				$state.go('app.about');
 			}else{
 				$("#txtUsuario").parent().addClass("input-text-error");
