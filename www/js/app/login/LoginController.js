@@ -1,10 +1,12 @@
 angular.module('LoginModule')
 
-.controller('LoginController', ['$scope', 'AccesosService', 'ionicToast', '$state', function($scope, AccesosService, ionicToast, $state){
+.controller('LoginController', ['$scope', 'AccesosService', 'ionicToast', '$state', '$localStorage',function($scope, AccesosService, ionicToast, $state, localStorage){
 	$scope.usuario = {};
 
 	$scope.$on('$ionicView.loaded', function(){
-
+		//AccesosService.obtenerSessionLogeado().then(function(rpta){
+			//console.log(rpta);
+		//})
 	});
 
 	$scope.validarForm = function(usuario){
@@ -23,11 +25,14 @@ angular.module('LoginModule')
 
 	}
 
-	$scope.validarUsuario = function(usuario){
+	$scope.validarUsuario = function(usuario, $localStorage){
 		AccesosService.validarUsuario(usuario).then(function(rpta){
-			if(rpta == 1){
-				//console.log($state);
+			//console.log(rpta)
+			if(rpta['existe'] == 1){
+				localStorage.usuario = usuario['usuario'];
+				localStorage.token = rpta['token'];
 				$state.go('app.about');
+				//console.log($localStorage);
 			}else{
 				$("#txtUsuario").parent().addClass("input-text-error");
 				$("#txtContrasenia").parent().addClass("input-text-error");

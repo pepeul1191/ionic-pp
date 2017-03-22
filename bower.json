@@ -10,6 +10,8 @@
     "ngCordova": "^0.1.27-alpha",
     "ionic-toast": "^0.4.1",
     "mootools": "^1.6.0",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "angular-cookies": "^1.6.3",
+    "ngstorage": "^0.3.11"
   }
 }

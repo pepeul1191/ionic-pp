@@ -1,6 +1,6 @@
 var BASE_URL = 'http://localhost:8888/';
 
-angular.module('starter', ['ionic', 'LoginModule'])
+angular.module('starter', ['ionic', 'LoginModule', 'ngStorage'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -15,9 +15,8 @@ angular.module('starter', ['ionic', 'LoginModule'])
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
   $stateProvider
-
     .state('app', {
         url: '/app',
         abstract: true,
